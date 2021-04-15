@@ -7,11 +7,13 @@
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
         <module name="DataLoad" />
+        <module name="statistics" />
       </profile>
     </annotationProcessing>
     <bytecodeTargetLevel>
       <module name="CSYE7200_FinalProj_Team3" target="1.5" />
       <module name="DataLoad" target="1.5" />
+      <module name="statistics" target="8" />
     </bytecodeTargetLevel>
   </component>
 </project>
