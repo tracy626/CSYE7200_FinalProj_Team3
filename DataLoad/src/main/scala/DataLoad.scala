@@ -44,9 +44,13 @@ case class MongoConfig(uri: String, db: String)
 object DataLoad {
 
   // csv local path
-  val MOVIE_DATA_PATH = "/Users/svelar/PRO/NEU/21SP/CSYE7200-Final/CSYE7200_FinalProj_Team3/DataLoad/src/main/resources/movie.csv"
-  val RATING_DATA_PATH = "/Users/svelar/PRO/NEU/21SP/CSYE7200-Final/CSYE7200_FinalProj_Team3/DataLoad/src/main/resources/rating1200.csv"
-  val TAG_DATA_PATH = "/Users/svelar/PRO/NEU/21SP/CSYE7200-Final/CSYE7200_FinalProj_Team3/DataLoad/src/main/resources/tag_new.csv"
+  val moviePath: String = getClass.getResource("movie.csv").toString
+  val ratingPath: String = getClass.getResource("rating1200.csv").toString
+  val tagPath: String = getClass.getResource("tag_new.csv").toString
+
+//  val MOVIE_DATA_PATH = "/Users/tracy626/Documents/Studies/NEU/CSYE7200/GroupProject/CSYE7200_FinalProj_Team3/DataLoad/src/main/resources/movie.csv"
+//  val RATING_DATA_PATH = "/Users/tracy626/Documents/Studies/NEU/CSYE7200/GroupProject/CSYE7200_FinalProj_Team3/DataLoad/src/main/resources/rating1200.csv"
+//  val TAG_DATA_PATH = "/Users/tracy626/Documents/Studies/NEU/CSYE7200/GroupProject/CSYE7200_FinalProj_Team3/DataLoad/src/main/resources/tag_new.csv"
 
   val MONGODB_MOVIE_COLLECTION = "Movie"
   val MONGODB_RATING_COLLECTION = "Rating"
@@ -70,7 +74,7 @@ object DataLoad {
     import sparkSession.implicits._
 
     // load data
-    val movieRDD = sparkSession.sparkContext.textFile(MOVIE_DATA_PATH)
+    val movieRDD = sparkSession.sparkContext.textFile(moviePath)
 
     //RDD->DataFrame
     val movieDF = movieRDD.map(
@@ -80,7 +84,7 @@ object DataLoad {
       }
     ).toDF()
 
-    val ratingRDD = sparkSession.sparkContext.textFile(RATING_DATA_PATH)
+    val ratingRDD = sparkSession.sparkContext.textFile(ratingPath)
 
     //RDD->DataFrame
     val ratingDF = ratingRDD.map(item => {
@@ -89,7 +93,7 @@ object DataLoad {
       Rating(attr(0).toInt, attr(1).toInt, attr(2).toDouble, fm.parse(attr(3)).getTime)
     }).toDF()
 
-    val tagRDD = sparkSession.sparkContext.textFile(TAG_DATA_PATH)
+    val tagRDD = sparkSession.sparkContext.textFile(tagPath)
 
     //tagRDD->DataFrame
     val tagDF = tagRDD.map(item => {
