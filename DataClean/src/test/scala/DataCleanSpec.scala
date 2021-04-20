@@ -32,6 +32,7 @@ class DataCleanSpec extends AnyFlatSpec with Matchers {
     val dfSelected = DataClean.selectRaingData(df, num)
 
     dfSelected.count() shouldBe 3
+    spark.stop()
   }
 
   it should "replace ',' to ' ' in tag dataframe" in {
@@ -54,5 +55,6 @@ class DataCleanSpec extends AnyFlatSpec with Matchers {
     val dfModified = DataClean.convertComma(df, sep)
 
     dfModified.first().get(2) shouldBe("a b c d")
+    spark.stop()
   }
 }

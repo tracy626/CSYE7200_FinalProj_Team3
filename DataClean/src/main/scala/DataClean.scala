@@ -38,18 +38,6 @@ object DataClean {
     // create SparkSession
     val sparkSession: SparkSession = SparkSession.builder().config(sparkConf).getOrCreate()
 
-    import sparkSession.implicits._
-
-//    // load data
-//    val ratingRDD: RDD[String] = sparkSession.sparkContext.textFile(ratingPath)
-//
-//    //RDD->DataFrame
-//    val ratingDF: DataFrame = ratingRDD.map(item => {
-//      val attr = item.split(",")
-//      val fm = new SimpleDateFormat("yyyy/MM/dd")
-//      Rating(attr(0).toInt, attr(1).toInt, attr(2).toDouble, attr(3).toLong)
-//    }).toDF()
-
     val ratingDF: DataFrame = sparkSession.read.format("csv")
       .option("sep", ",")
       .option("inferSchema", "true")
