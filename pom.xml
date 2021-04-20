@@ -12,6 +12,7 @@
         <module>DataClean</module>
         <module>DataLoad</module>
         <module>Statistics</module>
+        <module>AlsRecommendation</module>
     </modules>
 
 
@@ -23,6 +24,7 @@
         <spark.version>2.1.1</spark.version>
         <scala.version>2.11.8</scala.version>
         <scalatest.version>3.2.7</scalatest.version>
+        <jblas.version>1.2.1</jblas.version>
     </properties>
 
     <dependencies>
