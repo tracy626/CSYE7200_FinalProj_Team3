@@ -21,8 +21,8 @@ class DataLoadSpec extends AnyFlatSpec with Matchers {
   }
 
   "MongoConfig" should "handle mongodb config" in {
-    val config = MongoConfig("mongodb://localhost:27017/csye7200", "csye7200")
-    config.db shouldBe("csye7200")
+    val config = MongoConfig("mongodb://localhost:27017/csye7200_test ", "csye7200_test")
+    config.db shouldBe("csye7200_test")
   }
 
   behavior of "DataLoad"
