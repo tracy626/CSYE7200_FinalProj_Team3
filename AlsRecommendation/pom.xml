@@ -53,6 +53,12 @@
             <artifactId>mongo-spark-connector_2.11</artifactId>
             <version>${mongodb-spark.version}</version>
         </dependency>
+        <!-- Scalatest -->
+        <dependency>
+            <groupId>org.scalatest</groupId>
+            <artifactId>scalatest_2.11</artifactId>
+            <version>${scalatest.version}</version>
+        </dependency>
     </dependencies>
 
 </project>
