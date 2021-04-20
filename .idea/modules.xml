@@ -5,7 +5,7 @@
       <module fileurl="file://$PROJECT_DIR$/CSYE7200_FinalProj_Team3.iml" filepath="$PROJECT_DIR$/CSYE7200_FinalProj_Team3.iml" />
       <module fileurl="file://$PROJECT_DIR$/DataClean/DataClean.iml" filepath="$PROJECT_DIR$/DataClean/DataClean.iml" />
       <module fileurl="file://$PROJECT_DIR$/DataLoad/DataLoad.iml" filepath="$PROJECT_DIR$/DataLoad/DataLoad.iml" />
-      <module fileurl="file://$PROJECT_DIR$/Statistics/statistics.iml" filepath="$PROJECT_DIR$/Statistics/statistics.iml" />
+      <module fileurl="file://$PROJECT_DIR$/statistics/statistics.iml" filepath="$PROJECT_DIR$/statistics/statistics.iml" />
     </modules>
   </component>
 </project>
