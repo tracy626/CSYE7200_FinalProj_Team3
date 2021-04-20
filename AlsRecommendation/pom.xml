@@ -53,7 +53,6 @@
             <artifactId>mongo-spark-connector_2.11</artifactId>
             <version>${mongodb-spark.version}</version>
 
-
         </dependency>
     </dependencies>
 
