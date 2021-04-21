@@ -12,6 +12,4 @@ lazy val Statistics = project in file("Statistics")
 
 lazy val AlsRecommendation = project in file("AlsRecommendation")
 
-lazy val Play = project in file("Play")
-
-lazy val root = (project in file(".")).aggregate(DataClean, DataLoad, Statistics, AlsRecommendation, Play)
+lazy val root = (project in file(".")).aggregate(DataClean, DataLoad, Statistics, AlsRecommendation)
