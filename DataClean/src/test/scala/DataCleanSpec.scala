@@ -6,7 +6,7 @@ import org.scalatest.matchers.should.Matchers
 class DataCleanSpec extends AnyFlatSpec with Matchers {
 
   "Rating" should "handle rating dataset" in {
-    val rating: rate = Rating(1, 1, 4.5, 1033515200000L)
+    val rate: Rating = Rating(1, 1, 4.5, 1033515200000L)
     rate.score shouldBe 4.5
   }
 
