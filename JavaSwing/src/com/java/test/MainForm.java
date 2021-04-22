@@ -78,20 +78,26 @@ public class MainForm {
 		DBCursor result = _filterQuery!=null
 				? dbcol.find(_filterQuery)
 				: dbcol.find();
-		Object results[][] = new Object[10][];
+		Object results[][] = new Object[20][];
+//  Array rec [][]= new Arr;
+
 
 		while (result.hasNext()) {
 
 			DBObject rr = result.next();
-			for (int i = 0; i < 10; i++) {
+			int index =0;
+			for (int i = 0; i < 20; i++) {
 				results[i] = new Object[] {
 						rr.get("uid").toString(),
-						Arrays.asList(rr.get("recs").toString().split("}")).get(i)
+						Arrays.asList(rr.get("recs").toString().trim().replace("[ ","").replace("{ \"mid\" : ","").replace(", \"score\" :","").split("} ,|  ")).get(index),
+						Arrays.asList(rr.get("recs").toString().trim().replace("[ ","").replace("{ \"mid\" : ","").replace(", \"score\" :","").split("} ,|  ")).get(index+1)
+
 				};
+				index += 2;
 			}
 		}
 		TableModel tablemodel = new DefaultTableModel(results, new Object[] {
-				"uid", "rec"});
+				"uid", "mid", "score"});
 		jtUsers.setModel(tablemodel);
 		jtUsers.getColumn("_id").setWidth(0);
 	}
