@@ -14,9 +14,9 @@ Yue FANG
 ### Instruction
 
 1. Start MongoDB services.
-2. Run 'DataClean/src/main/scala/DataClean.scala' to clean dirty data.
+2. (Optional) Run 'DataClean/src/main/scala/DataClean.scala' to clean dirty data.
 3. Run 'DataLoad/src/main/scala/DataLoad.scala' to load data from csv files to MongoDB.
 4. Run 'Statistics/src/main/Scala/Statistics.scala' to create a table of statistical recommendation.
 5. Run 'AlsRecommendation/src/main/Scala/AlsOfflineRecommend.scala' to create table a table of user recommendation.
-6. Run Play for GUI.
+6. Run Play/Swing for GUI.
 
