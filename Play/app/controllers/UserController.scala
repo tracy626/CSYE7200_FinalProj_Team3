@@ -35,7 +35,7 @@ class UserController @Inject()(
     new ApiResponse(code = 404, message = "User not found")
   )
   )
-  def getMovies(@ApiParam(value = "The User ID") uid: Int) =
+  def getMovies(@ApiParam(value = "The User ID (30000 - 31199)") uid: Int) =
     Action.async { req =>
       movieRepo.getMovie(uid).map {
         case Some(movies) => Ok(Json.toJson(movies))

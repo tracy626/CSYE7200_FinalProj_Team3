@@ -39,7 +39,7 @@ class rateRepository @Inject()(
 
   import reactivemongo.play.json.compat,
   compat.json2bson._
-
+// combine RateMoreMovies with Movies, get new collection ???
   private def rateCollection: Future[BSONCollection] =
     reactiveMongoApi.database.map(_.collection[BSONCollection]("RateMoreMovies"))
 
