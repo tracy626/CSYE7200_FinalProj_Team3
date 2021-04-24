@@ -5,11 +5,11 @@ Inspired by a [Kaggle Competition](https://www.kaggle.com/grouplens/movielens-20
 
 ### Teammates
 
-Mengzhe ZHANG
+Mengzhe ZHANG (@Mengzhe-Madeline-Zhang)
 
-Rongqi SUN
+Rongqi SUN (@Svelar)
 
-Yue FANG
+Yue FANG (@tracy626)
 
 ### Instruction
 
