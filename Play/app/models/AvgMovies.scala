@@ -9,21 +9,23 @@ import reactivemongo.api.bson.{BSONDocument, BSONDocumentReader, BSONDocumentWri
 import scala.concurrent.{ExecutionContext, Future}
 import scala.util.Success
 
-case class AvgMovies(avg: Double, mid: Int)
+case class AvgMovies(name: String, avg: Double, mid: Int)
 
 object AvgMovies {
   implicit val avgFormat: OFormat[AvgMovies] = Json.format[AvgMovies]
 
   implicit object RateMoviesHandler extends BSONDocumentWriter[AvgMovies] with BSONDocumentReader[AvgMovies] {
     def writeTry(t: AvgMovies) = Success(BSONDocument(
+      "name" -> t.name,
       "avg" -> t.avg,
       "mid" -> t.mid
     ))
 
     def readDocument(doc: BSONDocument) = for {
+      name <- doc.getAsTry[String]("name")
       avg <- doc.getAsTry[Double]("avg")
       mid <- doc.getAsTry[Int]("mid")
-    } yield AvgMovies(avg, mid)
+    } yield AvgMovies(name, avg, mid)
   }
 }
 
@@ -39,7 +41,11 @@ class avgRepository @Inject()(
     reactiveMongoApi.database.map(_.collection[BSONCollection]("AverageMovies"))
 
   def getAll: Future[Seq[AvgMovies]] =
-    avgCollection.flatMap(_.find(BSONDocument.empty).
+  avgCollection.flatMap(_.find(BSONDocument.empty).
+    cursor[AvgMovies]().collect[Seq](100))
+
+  def getAvgMovie(avg: Double): Future[Seq[AvgMovies]] =
+    avgCollection.flatMap(_.find(BSONDocument("avg" -> avg)).
       cursor[AvgMovies]().collect[Seq](100))
 
   def getMovie(id: Int): Future[Option[AvgMovies]] = {

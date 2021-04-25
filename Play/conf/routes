@@ -10,6 +10,7 @@ GET       /user                       controllers.UserController.getAllMovies
 GET       /user/:uid                  controllers.UserController.getMovies(uid: Int)
 GET       /avg                        controllers.AvgController.getAllMovies
 GET       /avg/:id                    controllers.AvgController.getMovies(id: Int)
+GET       /avg/score/:avg             controllers.AvgController.getAvgMovies(avg: Double)
 
 # Swagger docs
 GET       /                           controllers.ApiDocsController.redirectToDocs

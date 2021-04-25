@@ -14,7 +14,7 @@ import reactivemongo.api.bson.collection.BSONCollection
 
 import scala.util.Success
 
-case class GenresTopMovies(genres: String, recs: List[Movies])
+case class GenresTopMovies(genres: String, recs: List[MoviesWithName])
 
 object GenresTopMovies {
   implicit val gtopFormat: OFormat[GenresTopMovies] = Json.format[GenresTopMovies]
@@ -27,7 +27,7 @@ object GenresTopMovies {
 
     def readDocument(doc: BSONDocument) = for {
       genres <- doc.getAsTry[String]("genres")
-      recs = doc.getAsOpt[List[Movies]]("recs").toList.flatten
+      recs = doc.getAsOpt[List[MoviesWithName]]("recs").toList.flatten
     } yield GenresTopMovies(genres, recs)
   }
 }

@@ -1,11 +1,7 @@
 package models
 
 import javax.inject.Inject
-import java.util.UUID
-
 import scala.util.Success
-
-//import models.RateMovies.rateFormat
 
 import scala.concurrent.{ExecutionContext, Future}
 import play.api.libs.json.{Json, OFormat}
@@ -15,21 +11,23 @@ import reactivemongo.api.commands.WriteResult
 import reactivemongo.api.bson.{BSONDocument, BSONDocumentReader, BSONDocumentWriter}
 import reactivemongo.api.bson.collection.BSONCollection
 
-case class RateMovies(count: Long, mid: Int)
+case class RateMovies(name: String, count: Long, mid: Int)
 
 object RateMovies {
   implicit val rateFormat: OFormat[RateMovies] = Json.format[RateMovies]
 
   implicit object RateMoviesHandler extends BSONDocumentWriter[RateMovies] with BSONDocumentReader[RateMovies] {
     def writeTry(t: RateMovies) = Success(BSONDocument(
-      "count" -> t.count,
-      "mid" -> t.mid
+      "movie name" -> t.name,
+      "rating count" -> t.count,
+      "movie id" -> t.mid
     ))
 
     def readDocument(doc: BSONDocument) = for {
+      name <- doc.getAsTry[String]("name")
       count <- doc.getAsTry[Long]("count")
       mid <- doc.getAsTry[Int]("mid")
-    } yield RateMovies(count, mid)
+    } yield RateMovies(name, count, mid)
   }
 }
 

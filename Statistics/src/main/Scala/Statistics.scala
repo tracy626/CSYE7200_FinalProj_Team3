@@ -11,7 +11,7 @@ case class Rating(uid: Int, mid: Int, score: Double, timestamp: Long)
 case class MongoConfig(uri: String, db: String)
 
 //basic recommendation object
-case class Recommendation(mid: Int, score: Double)
+case class Recommendation(mid: Int, name: String, score: Double)
 
 //genre top10 case class
 case class GenresRecommendation(genres: String, recs: Seq[Recommendation])
@@ -65,14 +65,17 @@ object StatisticsRecommend {
     //ratings view
     ratingDF.createOrReplaceTempView("ratings")
 
+    //movies view
+    movieDF.createOrReplaceTempView("movies")
+
     //1.receive score top
-    val rateMoreMoviesDF = sparkSession.sql("select mid,count(mid) as count from ratings group by mid")
+    val rateMoreMoviesDF = sparkSession.sql("select mid , name ,count(mid) as count from(SELECT r.mid ,m.name FROM ratings r LEFT JOIN movies m ON r.mid=m.mid) group by mid,name")
     //write
     storeInMongoDB(rateMoreMoviesDF, RATE_MORE_MOVIES)
 
 
     //2.average scores top
-    val averageMoviesDF = sparkSession.sql("select mid, avg(score) as avg from ratings group by mid")
+    val averageMoviesDF = sparkSession.sql("select r.mid, m.name, avg(r.score) as avg from ratings r LEFT JOIN movies m ON r.mid=m.mid group by r.mid, m.name")
     storeInMongoDB(averageMoviesDF, AVERAGE_MOVIES)
 
     //3.genre top
@@ -85,15 +88,15 @@ object StatisticsRecommend {
     //genre top10，cartesian genre and movie
     val genresTopMoviesDF = genresRDD.cartesian(movieWithScore.rdd)
       .filter {
-            //contains genre
+        //contains genre
         case (genre, movieRow) => movieRow.getAs[String]("genres").toLowerCase.contains(genre.toLowerCase)
       }
       .map {
-        case (genre, movieRow) => (genre, (movieRow.getAs[Int]("mid"), movieRow.getAs[Double]("avg")))
+        case (genre, movieRow) => (genre, (movieRow.getAs[Int]("mid"),movieRow.getAs[String]("name"),movieRow.getAs[Double]("avg")))
       }
       .groupByKey()
       .map {
-        case (genre, items) => GenresRecommendation(genre, items.toList.sortWith(_._2 > _._2).take(10).map(item => Recommendation(item._1, item._2)))
+        case (genre, items) => GenresRecommendation(genre, items.toList.sortWith(_._2 > _._2).take(10).map(item => Recommendation(item._1, item._2,item._3)))
       }
       .toDF()
     storeInMongoDB(genresTopMoviesDF, GENRES_TOP_MOVIES)

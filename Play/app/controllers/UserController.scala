@@ -9,7 +9,7 @@ import play.api.mvc.{AbstractController, ControllerComponents}
 
 import scala.concurrent.ExecutionContext.Implicits.global
 
-@Api(value = "/movies")
+@Api(value = "/User Preference")
 class UserController @Inject()(
                                 cc: ControllerComponents,
                                 movieRepo: userRepository) extends AbstractController(cc) {

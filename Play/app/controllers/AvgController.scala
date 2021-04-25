@@ -8,7 +8,7 @@ import play.api.mvc.{AbstractController, ControllerComponents}
 
 import scala.concurrent.ExecutionContext.Implicits.global
 
-@Api(value = "/movies")
+@Api(value = "/Statistics Recommendation")
 class AvgController  @Inject()(
                                 cc: ControllerComponents,
                                 movieRepo: avgRepository) extends AbstractController(cc) {
@@ -19,6 +19,20 @@ class AvgController  @Inject()(
   )
   def getAllMovies = Action.async {
     movieRepo.getAll.map{ movies =>
+      Ok(Json.toJson(movies))
+    }.recover{ case t: Throwable =>
+      Ok("ERROR: " + t.getMessage)
+    }
+  }
+
+  @ApiOperation(
+    value = "Find all Movies with Request Average Score",
+    response = classOf[AvgMovies],
+    responseContainer = "List"
+  )
+  def getAvgMovies(@ApiParam(value = "The averrage score of the Movie to fetch") avg: Double) =
+    Action.async {
+    movieRepo.getAvgMovie(avg).map{ movies =>
       Ok(Json.toJson(movies))
     }.recover{ case t: Throwable =>
       Ok("ERROR: " + t.getMessage)

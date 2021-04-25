@@ -17,4 +17,15 @@ class StatisticsSpec extends AnyFlatSpec with Matchers {
     val config = MongoConfig("mongodb://localhost:27017/csye7200", "csye7200")
     config.db shouldBe("csye7200")
   }
+
+  "Recommendation" should "handle recommendateion object" in {
+    val rec = Recommendation(1, "Scala", 5)
+    rec.name shouldBe "Scala"
+  }
+
+  "GenresRecommendation" should "handle genres recommendateion object" in {
+    val recs: Seq[Recommendation] = Seq(Recommendation(1, "Scala", 5))
+    val genresRec = GenresRecommendation("Computing", recs)
+    genresRec.genres shouldBe "Computing"
+  }
 }

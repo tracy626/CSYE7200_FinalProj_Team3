@@ -10,7 +10,7 @@ import play.api.mvc.{AbstractController, ControllerComponents}
 
 import scala.concurrent.ExecutionContext.Implicits.global
 
-@Api(value = "/movies")
+@Api(value = "/Statistics Recommendation")
 class GtopController @Inject()(
                                 cc: ControllerComponents,
                                 movieRepo: gTopRepository) extends AbstractController(cc) {
