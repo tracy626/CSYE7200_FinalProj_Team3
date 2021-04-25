@@ -4,3 +4,5 @@ target/
 */target/
 .idea
 *.iml
+.DS_Store
+.bsp/sbt.json
