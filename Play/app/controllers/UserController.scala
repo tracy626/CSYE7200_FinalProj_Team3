@@ -7,7 +7,9 @@ import models.Users.userFormat
 import play.api.libs.json.Json
 import play.api.mvc.{AbstractController, ControllerComponents}
 
+import scala.concurrent.Await
 import scala.concurrent.ExecutionContext.Implicits.global
+import scala.concurrent.duration.DurationInt
 
 @Api(value = "/User Preference")
 class UserController @Inject()(
@@ -44,7 +46,7 @@ class UserController @Inject()(
               val name = movieRepo.getMovieGMN(rec.mid).map {
                 case Some(movieGMN) => movieGMN.name
               }
-              name.toString
+              Await.result(name, 1.second)
             }
             , rec.mid, rec.score)
           val users1 = Users1(movies.uid, recsNew)
