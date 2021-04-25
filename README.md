@@ -19,5 +19,5 @@ Yue FANG (@tracy626)
 4. Run 'Statistics/src/main/Scala/Statistics.scala' to create a table of statistical recommendation.
 5. Run 'AlsRecommendation/src/main/Scala/AlsOfflineRecommend.scala' to create table a table of user recommendation.
 6. Run Play for GUI (`sbt run` in Play directory).
-(Detail of UI please check the screenshot video)
+(Detail of UI please check the screenshot video https://youtu.be/OhQoG5l7vFc)
 
