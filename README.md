@@ -18,5 +18,6 @@ Yue FANG (@tracy626)
 3. Run 'DataLoad/src/main/scala/DataLoad.scala' to load data from csv files to MongoDB.
 4. Run 'Statistics/src/main/Scala/Statistics.scala' to create a table of statistical recommendation.
 5. Run 'AlsRecommendation/src/main/Scala/AlsOfflineRecommend.scala' to create table a table of user recommendation.
-6. Run Play for GUI.
+6. Run Play for GUI (`sbt run` in Play directory).
+(Detail of UI please check the screenshot video)
 
