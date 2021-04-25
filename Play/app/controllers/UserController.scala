@@ -2,7 +2,7 @@ package controllers
 
 import io.swagger.annotations.{Api, ApiOperation, ApiParam, ApiResponse, ApiResponses}
 import javax.inject.Inject
-import models.{Users, userRepository}
+import models.{MoviesWithName, Users, Users1, userRepository}
 import models.Users.userFormat
 import play.api.libs.json.Json
 import play.api.mvc.{AbstractController, ControllerComponents}
@@ -38,8 +38,19 @@ class UserController @Inject()(
   def getMovies(@ApiParam(value = "The User ID (30000 - 31199)") uid: Int) =
     Action.async { req =>
       movieRepo.getMovie(uid).map {
-        case Some(movies) => Ok(Json.toJson(movies))
-        case None    => Ok("Genre Not Found.")
+        case Some(movies) => {
+          val recsNew = for (rec <- movies.recs) yield MoviesWithName(
+            {
+              val name = movieRepo.getMovieGMN(rec.mid).map {
+                case Some(movieGMN) => movieGMN.name
+              }
+              name.toString
+            }
+            , rec.mid, rec.score)
+          val users1 = Users1(movies.uid, recsNew)
+          Ok(Json.toJson(users1))
+        }
+        case None    => Ok("User ID Not Exist.")
       }.recover{ case t: Throwable =>
         Ok("ERROR: " + t.getMessage)
       }

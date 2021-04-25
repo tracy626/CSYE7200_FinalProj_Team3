@@ -26,7 +26,7 @@ class RateController @Inject()(
   }
 
   @ApiOperation(
-    value = "Get a Movie",
+    value = "Get a Movie of Request ID",
     response = classOf[RateMovies]
   )
   @ApiResponses(Array(
@@ -37,7 +37,7 @@ class RateController @Inject()(
     Action.async { req =>
       movieRepo.getMovie(movieId).map {
         case Some(movie) => Ok(Json.toJson(movie))
-        case None    => Ok("Movie Not Found.")
+        case None    => Ok("This Movie is Not Recommended.")
       }.recover{ case t: Throwable =>
         Ok("ERROR: " + t.getMessage)
       }
